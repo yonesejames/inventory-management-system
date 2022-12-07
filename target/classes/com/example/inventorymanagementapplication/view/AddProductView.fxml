@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="636.0" prefWidth="1099.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.inventorymanagementapplication.controller.AddProductController">
+    <children>
+        <Label layoutX="174.0" layoutY="118.0" text="Add Product" />
+        <Label layoutX="100.0" layoutY="192.0" text="ID" />
+        <Label layoutX="100.0" layoutY="242.0" text="Name" />
+        <Label layoutX="100.0" layoutY="292.0" text="Inventory" />
+        <Label layoutX="100.0" layoutY="342.0" text="Price" />
+        <Label layoutX="100.0" layoutY="392.0" text="Min" />
+        <Label layoutX="359.0" layoutY="392.0" text="Max" />
+        <Button fx:id="addProductSaveButton" layoutX="913.0" layoutY="583.0" mnemonicParsing="false" onAction="#addProductSaveButtonAction" text="Save" />
+        <Button fx:id="addProductCancelButton" layoutX="974.0" layoutY="583.0" mnemonicParsing="false" onAction="#addProductCancelButtonAction" text="Cancel" />
+        <TextField fx:id="addProductNameTextField" layoutX="172.0" layoutY="238.0" onAction="#addProductNameTextFieldAction" />
+        <TextField fx:id="addProductInventoryTextField" layoutX="172.0" layoutY="288.0" onAction="#addProductInventoryTextFieldAction" />
+        <TextField fx:id="addProductPriceTextField" layoutX="174.0" layoutY="338.0" onAction="#addProductPriceTextFieldAction" />
+        <TextField fx:id="addProductMinTextField" layoutX="174.0" layoutY="388.0" onAction="#addProductMinTextFieldAction" />
+        <TextField fx:id="addProductMaxTextField" layoutX="401.0" layoutY="388.0" onAction="#addProductMaxTextFieldAction" />
+        <BorderPane layoutX="705.0" layoutY="94.0" prefHeight="185.0" prefWidth="357.0">
+            <center>
+                <TableView fx:id="addProductPartTable" onSort="#addProductPartTableAction" prefHeight="164.0" prefWidth="357.0" BorderPane.alignment="CENTER">
+                    <columns>
+                        <TableColumn fx:id="addProductProductIDColumn" prefWidth="49.0" text="Part ID" />
+                        <TableColumn fx:id="addProductProductNameColumn" prefWidth="73.0" text="Part Name" />
+                        <TableColumn fx:id="addProductProductInventoryColumn" prefWidth="95.0" text="Inventory Level" />
+                        <TableColumn fx:id="addProductProductPriceColumn" prefWidth="139.0" text="Price/Cost Per Unit" />
+                    </columns>
+                </TableView>
+            </center>
+         <bottom>
+            <ScrollBar BorderPane.alignment="CENTER" />
+         </bottom>
+        </BorderPane>
+      <BorderPane layoutX="705.0" layoutY="338.0" prefHeight="185.0" prefWidth="357.0">
+         <center>
+            <TableView fx:id="addProductPartTableNew" onSort="#addProductPartTableNewAction" prefHeight="164.0" prefWidth="357.0" BorderPane.alignment="CENTER">
+               <columns>
+                  <TableColumn fx:id="addProductProductIDNewColumn" prefWidth="49.0" text="Part ID" />
+                  <TableColumn fx:id="addProductProductNameNewColumn" prefWidth="73.0" text="Part Name" />
+                  <TableColumn fx:id="addProductProductInventoryNewColumn" prefWidth="95.0" text="Inventory Level" />
+                  <TableColumn fx:id="addProductProductPriceNewColumn" prefWidth="139.0" text="Price/Cost Per Unit" />
+               </columns>
+            </TableView>
+         </center>
+         <bottom>
+            <ScrollBar BorderPane.alignment="CENTER" />
+         </bottom>
+      </BorderPane>
+      <TextField fx:id="addProductSearchTextField" layoutX="913.0" layoutY="54.0" onAction="#addProductSearchTextFieldAction" />
+      <Button fx:id="addProductAddPartButton" layoutX="1007.0" layoutY="288.0" mnemonicParsing="false" onAction="#addProductAddPartButtonAction" onKeyPressed="#addProductKeyPressedAction" text="Add" />
+      <Button fx:id="addProductRemovePartButton" layoutX="902.0" layoutY="537.0" mnemonicParsing="false" onAction="#addProductRemovePartButtonAction" text="Remove Associated Part" />
+      <Label fx:id="addProductID" layoutX="208.0" layoutY="192.0" />
+    </children>
+</AnchorPane>
