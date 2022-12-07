@@ -101,7 +101,7 @@ public class AddProductController implements Initializable {
 
     public void addProductSaveButtonAction(ActionEvent actionEvent) {
         try {
-            newProduct.setId(Inventory.setProductID());
+            newProduct.setId(Integer.parseInt(addProductID.getText()));
             newProduct.setName(addProductNameTextField.getText());
             newProduct.setPrice(Double.parseDouble(addProductPriceTextField.getText()));
             newProduct.setStock(Integer.parseInt(addProductInventoryTextField.getText()));
