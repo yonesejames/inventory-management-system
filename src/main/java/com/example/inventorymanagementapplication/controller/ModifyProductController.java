@@ -72,9 +72,11 @@ public class ModifyProductController implements Initializable {
     @FXML
     private Button modifyProductRemovePartButton;
 
-    private Product modifiedProduct = new Product();
+    private Product modifiedProduct;
 
     private ObservableList<Part> associatedParts = FXCollections.observableArrayList();
+
+    Product selectedProduct;
 
     /**
      * Initialize method for the ModifyProductController to initialize the stage and items.
@@ -84,29 +86,30 @@ public class ModifyProductController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        modifyProductPartIDColumn.setCellValueFactory(new PropertyValueFactory<>("Product ID"));
-        modifyProductPartNameColumn.setCellValueFactory(new PropertyValueFactory<>("Product Name"));
-        modifyProductPartInventoryColumn.setCellValueFactory(new PropertyValueFactory<>("Product Inventory"));
-        modifyProductPartPriceColumn.setCellValueFactory(new PropertyValueFactory<>("Product Price"));
+        selectedProduct = MainScreenController.getSelectedProduct();
+        modifyProductID.setText(String.valueOf(selectedProduct.getId()));
+        modifyProductNameTextField.setText(selectedProduct.getName());
+        modifyProductInventoryTextField.setText(String.valueOf(selectedProduct.getStock()));
+        modifyProductPriceTextField.setText(String.valueOf(selectedProduct.getPrice()));
+        modifyProductMinTextField.setText(String.valueOf(selectedProduct.getMin()));
+        modifyProductMaxTextField.setText(String.valueOf(selectedProduct.getMax()));
 
         modifyProductPartTable.setItems(Inventory.getAllParts());
+        modifyProductPartIDColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+        modifyProductPartNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        modifyProductPartInventoryColumn.setCellValueFactory(new PropertyValueFactory<>("stock"));
+        modifyProductPartPriceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
 
-        modifyProductPartIDNewColumn.setCellValueFactory(new PropertyValueFactory<>("Product ID"));
-        modifyProductPartNameNewColumn.setCellValueFactory(new PropertyValueFactory<>("Product Name"));
-        modifyProductPartInventoryNewColumn.setCellValueFactory(new PropertyValueFactory<>("Product Inventory"));
-        modifyProductPartPriceNewColumn.setCellValueFactory(new PropertyValueFactory<>("Product Price"));
-
+        modifyProductPartTableNew.setItems(selectedProduct.getAllAssociatedParts());
+        modifyProductPartIDNewColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+        modifyProductPartNameNewColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        modifyProductPartInventoryNewColumn.setCellValueFactory(new PropertyValueFactory<>("stock"));
+        modifyProductPartPriceNewColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
     }
 
     public void modifyProductSaveButtonAction(ActionEvent actionEvent) throws IOException {
         try {
-            modifiedProduct.setId(Integer.parseInt(modifyProductID.getText()));
-            modifiedProduct.setName(modifyProductNameTextField.getText());
-            modifiedProduct.setPrice(Double.parseDouble(modifyProductPriceTextField.getText()));
-            modifiedProduct.setStock(Integer.parseInt(modifyProductInventoryTextField.getText()));
-            modifiedProduct.setMin(Integer.parseInt(modifyProductMinTextField.getText()));
-            modifiedProduct.setMax(Integer.parseInt(modifyProductMaxTextField.getText()));
-            modifiedProduct.setAssociatedParts(modifiedProduct.getAllAssociatedParts());
+
 
             int min = Integer.parseInt(modifyProductMinTextField.getText());
             int max = Integer.parseInt(modifyProductMaxTextField.getText());
@@ -153,17 +156,17 @@ public class ModifyProductController implements Initializable {
         }
     }
 
-    public void selectedProduct(Product product) {
-        modifiedProduct = product;
-
-        modifyProductID.setText(String.valueOf(modifiedProduct.getId()));
-        modifyProductNameTextField.setText(modifiedProduct.getName());
-        modifyProductPriceTextField.setText(String.valueOf(modifiedProduct.getPrice()));
-        modifyProductInventoryTextField.setText(String.valueOf(modifiedProduct.getStock()));
-        modifyProductMaxTextField.setText(String.valueOf(modifiedProduct.getMax()));
-        modifyProductMinTextField.setText(String.valueOf(modifiedProduct.getMin()));
-        modifiedProduct.setAssociatedParts(modifiedProduct.getAllAssociatedParts());
-    }
+//    public void selectedProduct(Product product) {
+//        modifiedProduct = product;
+//
+//        modifyProductID.setText(String.valueOf(modifiedProduct.getId()));
+//        modifyProductNameTextField.setText(modifiedProduct.getName());
+//        modifyProductPriceTextField.setText(String.valueOf(modifiedProduct.getPrice()));
+//        modifyProductInventoryTextField.setText(String.valueOf(modifiedProduct.getStock()));
+//        modifyProductMaxTextField.setText(String.valueOf(modifiedProduct.getMax()));
+//        modifyProductMinTextField.setText(String.valueOf(modifiedProduct.getMin()));
+//        modifiedProduct.setAssociatedParts(modifiedProduct.getAllAssociatedParts());
+//    }
 
     public void modifyProductCancelButtonAction(ActionEvent actionEvent) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("view/MainScreenView.fxml"));

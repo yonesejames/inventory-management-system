@@ -70,6 +70,10 @@ public class MainScreenController implements Initializable {
     @FXML
     private TextField mainScreenProductSearch;
 
+    private static Part selectedPart;
+
+    private static Product selectedProduct;
+
     /**
      * Initialize method for the MainScreenController to initialize the stage and items.
      *
@@ -79,17 +83,16 @@ public class MainScreenController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         mainScreenPartTable.setItems(Inventory.getAllParts());
-        mainScreenPartIDColumn.setCellValueFactory(new PropertyValueFactory<>("Part ID"));
-        mainScreenPartNameColumn.setCellValueFactory(new PropertyValueFactory<>("Part Name"));
-        mainScreenPartInventoryColumn.setCellValueFactory(new PropertyValueFactory<>("Inventory Level"));
-        mainScreenPartPriceColumn.setCellValueFactory(new PropertyValueFactory<>("Price/Cost Per Unit"));
+        mainScreenPartIDColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+        mainScreenPartNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        mainScreenPartInventoryColumn.setCellValueFactory(new PropertyValueFactory<>("stock"));
+        mainScreenPartPriceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
 
         mainScreenProductTable.setItems(Inventory.getAllProducts());
-
-        mainScreenProductIDColumn.setCellValueFactory(new PropertyValueFactory<>("Product ID"));
-        mainScreenProductNameColumn.setCellValueFactory(new PropertyValueFactory<>("Product Name"));
-        mainScreenProductInventoryColumn.setCellValueFactory(new PropertyValueFactory<>("Inventory Level"));
-        mainScreenProductPriceColumn.setCellValueFactory(new PropertyValueFactory<>("Price/Cost Per Unit"));
+        mainScreenProductIDColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+        mainScreenProductNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        mainScreenProductInventoryColumn.setCellValueFactory(new PropertyValueFactory<>("stock"));
+        mainScreenProductPriceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
 
     }
 
@@ -103,7 +106,7 @@ public class MainScreenController implements Initializable {
     }
 
     public void mainScreenModifyPartButtonAction(ActionEvent actionEvent) throws IOException {
-        Part selectedPart = mainScreenPartTable.getSelectionModel().getSelectedItem();
+        selectedPart = mainScreenPartTable.getSelectionModel().getSelectedItem();
         if (selectedPart == null)
         {
             Alert errorAlert = new Alert(Alert.AlertType.ERROR);
@@ -121,6 +124,10 @@ public class MainScreenController implements Initializable {
             stage.show();
         }
 
+    }
+
+    public static Part getSelectedPart() {
+        return selectedPart;
     }
 
     public void mainScreenDeletePartButtonAction(ActionEvent actionEvent) throws IOException {
@@ -205,8 +212,12 @@ public class MainScreenController implements Initializable {
         stage.show();
     }
 
+    public static Product getSelectedProduct() {
+        return selectedProduct;
+    }
+
     public void mainScreenModifyProductButtonAction(ActionEvent actionEvent) throws IOException {
-        Product selectedProduct = mainScreenProductTable.getSelectionModel().getSelectedItem();
+        selectedProduct = mainScreenProductTable.getSelectionModel().getSelectedItem();
         if (selectedProduct == null)
         {
             Alert errorAlert = new Alert(Alert.AlertType.ERROR);

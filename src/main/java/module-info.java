@@ -7,4 +7,6 @@ module com.example.inventorymanagementapplication {
     exports com.example.inventorymanagementapplication;
     exports com.example.inventorymanagementapplication.controller;
     opens com.example.inventorymanagementapplication.controller to javafx.fxml;
+    exports com.example.inventorymanagementapplication.model;
+    opens com.example.inventorymanagementapplication.model to javafx.fxml;
 }

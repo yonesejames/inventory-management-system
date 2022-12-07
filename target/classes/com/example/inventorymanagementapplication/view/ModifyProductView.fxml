@@ -49,7 +49,7 @@
                 <ScrollBar BorderPane.alignment="CENTER" />
             </bottom>
         </BorderPane>
-        <TextField fx:id="modifyProductSearchTextField" layoutX="913.0" layoutY="54.0" onAction="#modifyProductSearchTextFieldAction" />
+        <TextField fx:id="modifyProductSearchTextField" layoutX="913.0" layoutY="54.0" onAction="#modifyProductSearchTextFieldAction" onKeyPressed="#modifyProductKeyPressedAction"/>
         <Button layoutX="1007.0" layoutY="288.0" mnemonicParsing="false" text="Add" />
         <Button fx:id="modifyProductRemovePartButton" layoutX="902.0" layoutY="537.0" mnemonicParsing="false" onAction="#modifyProductRemovePartButtonAction" text="Remove Associated Part" />
       <Label fx:id="modifyProductID" layoutX="229.0" layoutY="192.0" />

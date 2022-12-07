@@ -85,19 +85,18 @@ public class AddProductController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        addProductProductIDColumn.setCellValueFactory(new PropertyValueFactory<>("Product ID"));
-        addProductProductNameColumn.setCellValueFactory(new PropertyValueFactory<>("Product Name"));
-        addProductProductInventoryColumn.setCellValueFactory(new PropertyValueFactory<>("Inventory Level"));
-        addProductProductPriceColumn.setCellValueFactory(new PropertyValueFactory<>("Price/Cost Per Unit"));
-
         addProductPartTable.setItems(Inventory.getAllParts());
-
+        addProductProductIDColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+        addProductProductNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        addProductProductInventoryColumn.setCellValueFactory(new PropertyValueFactory<>("stock"));
+        addProductProductPriceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
         addProductID.setText(String.valueOf(Inventory.setProductID()));
 
-        addProductProductIDNewColumn.setCellValueFactory(new PropertyValueFactory<>("Product ID"));
-        addProductProductNameNewColumn.setCellValueFactory(new PropertyValueFactory<>("Product Name"));
-        addProductProductInventoryNewColumn.setCellValueFactory(new PropertyValueFactory<>("Inventory Level"));
-        addProductProductPriceNewColumn.setCellValueFactory(new PropertyValueFactory<>("Price/Cost Per Unit"));
+        addProductPartTableNew.setItems(Inventory.getAllParts());
+        addProductProductIDNewColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+        addProductProductNameNewColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        addProductProductInventoryNewColumn.setCellValueFactory(new PropertyValueFactory<>("stock"));
+        addProductProductPriceNewColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
     }
 
     public void addProductSaveButtonAction(ActionEvent actionEvent) {

@@ -59,6 +59,7 @@ public class ModifyPartController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
         inhouseOrOutsourced.selectToggle(modifyPartInhouseRadioButton);
         modifyPartID.setText(String.valueOf(Inventory.setPartID()));
     }
