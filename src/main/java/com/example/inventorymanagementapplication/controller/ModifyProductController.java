@@ -110,6 +110,12 @@ public class ModifyProductController implements Initializable {
     public void modifyProductSaveButtonAction(ActionEvent actionEvent) throws IOException {
         try {
             modifiedProduct = selectedProduct;
+            modifiedProduct.setName(modifyProductNameTextField.getText());
+            modifiedProduct.setPrice(Double.parseDouble(modifyProductPriceTextField.getText()));
+            modifiedProduct.setStock(Integer.parseInt(modifyProductInventoryTextField.getText()));
+            modifiedProduct.setMin(Integer.parseInt(modifyProductMinTextField.getText()));
+            modifiedProduct.setMax(Integer.parseInt(modifyProductMaxTextField.getText()));
+
             int min = Integer.parseInt(modifyProductMinTextField.getText());
             int max = Integer.parseInt(modifyProductMaxTextField.getText());
             int inventory = Integer.parseInt(modifyProductInventoryTextField.getText());
