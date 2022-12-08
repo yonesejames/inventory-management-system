@@ -5,6 +5,7 @@ import com.example.inventorymanagementapplication.Main;
 import com.example.inventorymanagementapplication.model.InHouse;
 import com.example.inventorymanagementapplication.model.Inventory;
 import com.example.inventorymanagementapplication.model.Outsourced;
+import com.example.inventorymanagementapplication.model.Part;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -29,6 +30,8 @@ public class ModifyPartController implements Initializable {
     @FXML
     public ToggleGroup inhouseOrOutsourced;
     @FXML
+    public Label machineIDOrCompanyName;
+    @FXML
     private RadioButton modifyPartInhouseRadioButton;
     @FXML
     private RadioButton modifyPartOutsourcedRadioButton;
@@ -51,6 +54,8 @@ public class ModifyPartController implements Initializable {
     @FXML
     private TextField modifyPartMachineIDTextField;
 
+    Part selectedPart;
+
     /**
      * Initialize method for the ModifyPartController to initialize the stage and items.
      *
@@ -59,24 +64,44 @@ public class ModifyPartController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        selectedPart = MainScreenController.getSelectedPart();
+        modifyPartID.setText(String.valueOf(selectedPart.getId()));
+        modifyPartNameTextField.setText(selectedPart.getName());
+        modifyPartInventoryTextField.setText(String.valueOf(selectedPart.getStock()));
+        modifyPartPriceTextField.setText(String.valueOf(selectedPart.getPrice()));
+        modifyPartMinTextField.setText(String.valueOf(selectedPart.getMin()));
+        modifyPartMaxTextField.setText(String.valueOf(selectedPart.getMax()));
 
-        inhouseOrOutsourced.selectToggle(modifyPartInhouseRadioButton);
-        modifyPartID.setText(String.valueOf(Inventory.setPartID()));
+        if (selectedPart instanceof InHouse) {
+            modifyPartInhouseRadioButton.setSelected(true);
+            machineIDOrCompanyName.setText("Machine ID");
+            modifyPartMachineIDTextField.setText(String.valueOf(((InHouse) selectedPart).getMachineID()));
+        }
+
+        if (selectedPart instanceof Outsourced){
+            modifyPartOutsourcedRadioButton.setSelected(true);
+            machineIDOrCompanyName.setText("Company Name");
+            modifyPartMachineIDTextField.setText(((Outsourced) selectedPart).getCompanyName());
+        }
     }
 
     public void modifyPartInhouseRadioButtonAction(ActionEvent actionEvent) {
-        modifyPartMachineIDTextField.setText("Machine ID");
+        machineIDOrCompanyName.setText("Machine ID");
         inhouseOrOutsourced.selectToggle(modifyPartInhouseRadioButton);
+        modifyPartInhouseRadioButton.setSelected(true);
+        modifyPartOutsourcedRadioButton.setSelected(false);
     }
 
     public void modifyPartOutsourcedRadioButtonAction(ActionEvent actionEvent) {
-        modifyPartMachineIDTextField.setText("Company Name");
+        machineIDOrCompanyName.setText("Company Name");
         inhouseOrOutsourced.selectToggle(modifyPartOutsourcedRadioButton);
+        modifyPartInhouseRadioButton.setSelected(false);
+        modifyPartOutsourcedRadioButton.setSelected(true);
     }
 
     public void modifyPartSaveButtonAction(ActionEvent actionEvent) {
         try {
-            int partID = Integer.parseInt(modifyPartID.getText());
+            int partID = selectedPart.getId();
             String partName = modifyPartNameTextField.getText();
             int partInventory = Integer.parseInt(modifyPartInventoryTextField.getText());
             double partPrice = Double.parseDouble(modifyPartPriceTextField.getText());
@@ -106,7 +131,7 @@ public class ModifyPartController implements Initializable {
                     String partCompanyName = modifyPartMachineIDTextField.getText();
                     Inventory.addPart(new Outsourced(partID, partName, partPrice, partInventory, partMin, partMax, partCompanyName));
                 }
-
+                Inventory.deletePart(selectedPart);
                 FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("view/MainScreenView.fxml"));
                 Scene scene = new Scene(fxmlLoader.load());
                 Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();

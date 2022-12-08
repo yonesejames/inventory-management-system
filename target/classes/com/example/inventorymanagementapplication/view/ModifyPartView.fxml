@@ -18,7 +18,7 @@
         <Label layoutX="100.0" layoutY="342.0" text="Price/Cost" />
         <Label layoutX="100.0" layoutY="392.0" text="Min" />
         <Label layoutX="359.0" layoutY="392.0" text="Max" />
-        <Label layoutX="100.0" layoutY="442.0" text="Machine ID" />
+        <Label fx:id="machineIDOrCompanyName" layoutX="100.0" layoutY="442.0" text="Machine ID" />
         <Button fx:id="modifyPartSaveButton" layoutX="412.0" layoutY="544.0" mnemonicParsing="false" onAction="#modifyPartSaveButtonAction" text="Save" />
         <Button fx:id="modifyPartCancelButton" layoutX="475.0" layoutY="544.0" mnemonicParsing="false" onAction="#modifyPartCancelButtonAction" text="Cancel" />
         <TextField fx:id="modifyPartNameTextField" layoutX="172.0" layoutY="238.0" onAction="#modifyPartNameTextField" />
