@@ -92,11 +92,11 @@ public class AddProductController implements Initializable {
         addProductProductPriceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
         addProductID.setText(String.valueOf(Inventory.setProductID()));
 
-        addProductPartTableNew.setItems(Inventory.getAllParts());
         addProductProductIDNewColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         addProductProductNameNewColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         addProductProductInventoryNewColumn.setCellValueFactory(new PropertyValueFactory<>("stock"));
         addProductProductPriceNewColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
+
     }
 
     public void addProductSaveButtonAction(ActionEvent actionEvent) {
@@ -107,7 +107,6 @@ public class AddProductController implements Initializable {
             newProduct.setStock(Integer.parseInt(addProductInventoryTextField.getText()));
             newProduct.setMin(Integer.parseInt(addProductMinTextField.getText()));
             newProduct.setMax(Integer.parseInt(addProductMaxTextField.getText()));
-            newProduct.setAssociatedParts(associatedParts);
 
             int min = Integer.parseInt(addProductMinTextField.getText());
             int max = Integer.parseInt(addProductMaxTextField.getText());
@@ -136,7 +135,7 @@ public class AddProductController implements Initializable {
             }
             else
             {
-                for (Part part: associatedParts)
+                for (Part part : associatedParts)
                 {
                     newProduct.addAssociatedPart(part);
                 }
@@ -219,7 +218,8 @@ public class AddProductController implements Initializable {
     public void addProductAddPartButtonAction(ActionEvent actionEvent) {
         Part selectedPart = addProductPartTable.getSelectionModel().getSelectedItem();
         associatedParts.add(selectedPart);
-        addProductPartTable.setItems(associatedParts);
+        addProductPartTableNew.setItems(associatedParts);
+        System.out.println(associatedParts.size());
     }
 
     public void addProductRemovePartButtonAction(ActionEvent actionEvent) throws IOException {
@@ -230,15 +230,9 @@ public class AddProductController implements Initializable {
         confirmationAlert.setContentText("PLEASE CONFIRM IF YOU WOULD LIKE TO REMOVE THIS PRODUCT");
         Optional<ButtonType> confirmationButton = confirmationAlert.showAndWait();
 
-        if (confirmationButton.isPresent() && confirmationButton.get() == ButtonType.YES) {
-            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("view/MainScreenView.fxml"));
-            Scene scene = new Scene(fxmlLoader.load());
-            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-            stage.setTitle("Inventory Management System");
-            stage.setScene(scene);
-            stage.show();
+        if (confirmationButton.isPresent() && confirmationButton.get() == ButtonType.OK) {
             associatedParts.remove(selectedPart);
-            addProductPartTable.setItems(associatedParts);
+            addProductPartTableNew.setItems(associatedParts);
         }
     }
 

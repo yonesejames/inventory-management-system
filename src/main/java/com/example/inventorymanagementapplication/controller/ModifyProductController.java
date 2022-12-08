@@ -31,6 +31,7 @@ import java.util.ResourceBundle;
 public class ModifyProductController implements Initializable {
     @FXML
     public Label modifyProductID;
+    public Button modifyProductAddPartButton;
     @FXML
     private Button modifyProductSaveButton;
     @FXML
@@ -87,6 +88,8 @@ public class ModifyProductController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         selectedProduct = MainScreenController.getSelectedProduct();
+
+        modifyProductPartTable.setItems(Inventory.getAllParts());
         modifyProductID.setText(String.valueOf(selectedProduct.getId()));
         modifyProductNameTextField.setText(selectedProduct.getName());
         modifyProductInventoryTextField.setText(String.valueOf(selectedProduct.getStock()));
@@ -94,17 +97,17 @@ public class ModifyProductController implements Initializable {
         modifyProductMinTextField.setText(String.valueOf(selectedProduct.getMin()));
         modifyProductMaxTextField.setText(String.valueOf(selectedProduct.getMax()));
 
-        modifyProductPartTable.setItems(Inventory.getAllParts());
         modifyProductPartIDColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         modifyProductPartNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         modifyProductPartInventoryColumn.setCellValueFactory(new PropertyValueFactory<>("stock"));
         modifyProductPartPriceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
+        modifyProductPartTable.setItems(selectedProduct.getAllAssociatedParts());
 
-        modifyProductPartTableNew.setItems(selectedProduct.getAllAssociatedParts());
         modifyProductPartIDNewColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         modifyProductPartNameNewColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         modifyProductPartInventoryNewColumn.setCellValueFactory(new PropertyValueFactory<>("stock"));
         modifyProductPartPriceNewColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
+        modifyProductPartTableNew.setItems(selectedProduct.getAllAssociatedParts());
     }
 
     public void modifyProductSaveButtonAction(ActionEvent actionEvent) throws IOException {
@@ -143,6 +146,10 @@ public class ModifyProductController implements Initializable {
             }
             else
             {
+                for (Part part: associatedParts)
+                {
+                    modifiedProduct.addAssociatedPart(part);
+                }
                 Inventory.updateProduct(modifiedProduct.getId(), modifiedProduct);
                 FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("view/MainScreenView.fxml"));
                 Scene scene = new Scene(fxmlLoader.load());
@@ -160,18 +167,6 @@ public class ModifyProductController implements Initializable {
         errorAlert.showAndWait();
         }
     }
-
-//    public void selectedProduct(Product product) {
-//        modifiedProduct = product;
-//
-//        modifyProductID.setText(String.valueOf(modifiedProduct.getId()));
-//        modifyProductNameTextField.setText(modifiedProduct.getName());
-//        modifyProductPriceTextField.setText(String.valueOf(modifiedProduct.getPrice()));
-//        modifyProductInventoryTextField.setText(String.valueOf(modifiedProduct.getStock()));
-//        modifyProductMaxTextField.setText(String.valueOf(modifiedProduct.getMax()));
-//        modifyProductMinTextField.setText(String.valueOf(modifiedProduct.getMin()));
-//        modifiedProduct.setAssociatedParts(modifiedProduct.getAllAssociatedParts());
-//    }
 
     public void modifyProductCancelButtonAction(ActionEvent actionEvent) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("view/MainScreenView.fxml"));
@@ -217,15 +212,9 @@ public class ModifyProductController implements Initializable {
         confirmationAlert.setContentText("PLEASE CONFIRM IF YOU WOULD LIKE TO REMOVE THIS PRODUCT");
         Optional<ButtonType> confirmationButton = confirmationAlert.showAndWait();
 
-        if (confirmationButton.isPresent() && confirmationButton.get() == ButtonType.YES) {
-            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("view/MainScreenView.fxml"));
-            Scene scene = new Scene(fxmlLoader.load());
-            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-            stage.setTitle("Inventory Management System");
-            stage.setScene(scene);
-            stage.show();
+        if (confirmationButton.isPresent() && confirmationButton.get() == ButtonType.OK) {
             associatedParts.remove(selectedPart);
-            modifyProductPartTable.setItems(associatedParts);
+            modifyProductPartTableNew.setItems(associatedParts);
         }
     }
 
@@ -233,5 +222,11 @@ public class ModifyProductController implements Initializable {
         if (modifyProductSearchTextField.getText().isEmpty()) {
             modifyProductPartTable.setItems(Inventory.getAllParts());
         }
+    }
+
+    public void modifyProductAddPartButtonAction(ActionEvent actionEvent) {
+        Part selectedPart = modifyProductPartTable.getSelectionModel().getSelectedItem();
+        associatedParts.add(selectedPart);
+        modifyProductPartTableNew.setItems(associatedParts);
     }
 }
