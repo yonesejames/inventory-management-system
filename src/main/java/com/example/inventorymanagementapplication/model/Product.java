@@ -1,5 +1,6 @@
 package com.example.inventorymanagementapplication.model;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 /**
@@ -11,7 +12,7 @@ public class Product {
     /**
      * Variable for the Product's associatedParts, id, name, price, stock, min, and max.
      */
-    private ObservableList<Part> associatedParts;
+    private ObservableList<Part> associatedParts = FXCollections.observableArrayList();
     private int id;
     private String name;
     private double price;
@@ -78,6 +79,7 @@ public class Product {
      * Method to add the associatedParts of the Product.
      *
      * Add the part to the associatedParts.
+     * @param part being added
      */
     public void addAssociatedPart(Part part) {
         associatedParts.add(part);
