@@ -7,7 +7,7 @@ package com.example.inventorymanagementapplication.model;
  */
 public class InHouse extends Part {
     /**
-     * Variable for the InHouse's machineId.
+     * Variable for the InHouse's machineID.
      */
     private int machineID;
 

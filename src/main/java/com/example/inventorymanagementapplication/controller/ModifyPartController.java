@@ -1,6 +1,5 @@
 package com.example.inventorymanagementapplication.controller;
 
-
 import com.example.inventorymanagementapplication.Main;
 import com.example.inventorymanagementapplication.model.InHouse;
 import com.example.inventorymanagementapplication.model.Inventory;
@@ -25,35 +24,91 @@ import java.util.ResourceBundle;
  * @author Yonese James
  */
 public class ModifyPartController implements Initializable {
+    /**
+     *  FXML label variable for the modifyPart's ID.
+     */
     @FXML
     public Label modifyPartID;
+
+    /**
+     * FXML toggle variable for the part's radio buttons: inhouse or outsourced.
+     */
     @FXML
     public ToggleGroup inhouseOrOutsourced;
+
+    /**
+     *  FXML label variable for the part's machineID or companyName.
+     */
     @FXML
     public Label machineIDOrCompanyName;
+
+    /**
+     *  FXML radio button variable for the part's inhouse.
+     */
     @FXML
     private RadioButton modifyPartInhouseRadioButton;
+
+    /**
+     *  FXML radio button variable for the part's outsourced.
+     */
     @FXML
     private RadioButton modifyPartOutsourcedRadioButton;
+
+    /**
+     *  FXML save button variable to save part.
+     */
     @FXML
     private Button modifyPartSaveButton;
+
+    /**
+     *  FXML cancel button variable to cancel part.
+     */
     @FXML
     private Button modifyPartCancelButton;
+
+
     @FXML
     private TextField modifyPartIDTextField;
+
+    /**
+     *  FXML text field variable for the modifyPart's name.
+     */
     @FXML
     private TextField modifyPartNameTextField;
+
+    /**
+     *  FXML text field variable for the modifyPart's stock.
+     */
     @FXML
     private TextField modifyPartInventoryTextField;
+
+    /**
+     *  FXML text field variable for the modifyPart's price.
+     */
     @FXML
     private TextField modifyPartPriceTextField;
+
+    /**
+     *  FXML text field variable for the modifyPart's minimum stock.
+     */
     @FXML
     private TextField modifyPartMinTextField;
+
+    /**
+     *  FXML text field variable for the modifyPart's maximum stock.
+     */
     @FXML
     private TextField modifyPartMaxTextField;
+
+    /**
+     *  FXML text field variable for the modifyPart's machineID or companyName.
+     */
     @FXML
     private TextField modifyPartMachineIDTextField;
 
+    /**
+     * Variable for the selected modifyPart.
+     */
     Part selectedPart;
 
     /**
@@ -85,6 +140,12 @@ public class ModifyPartController implements Initializable {
         }
     }
 
+    /**
+     * Method that selects the inhouse radio button and deselects the outsourced radio button if the selected part had
+     * inhouse information and has "Machine ID" as a label.
+     *
+     * @param actionEvent
+     */
     public void modifyPartInhouseRadioButtonAction(ActionEvent actionEvent) {
         machineIDOrCompanyName.setText("Machine ID");
         inhouseOrOutsourced.selectToggle(modifyPartInhouseRadioButton);
@@ -92,6 +153,12 @@ public class ModifyPartController implements Initializable {
         modifyPartOutsourcedRadioButton.setSelected(false);
     }
 
+    /**
+     * Method that selects the outsourced radio button and deselects the inhouse radio button if the selected part had
+     * outsourced information and has "Company Name" as a label.
+     *
+     * @param actionEvent
+     */
     public void modifyPartOutsourcedRadioButtonAction(ActionEvent actionEvent) {
         machineIDOrCompanyName.setText("Company Name");
         inhouseOrOutsourced.selectToggle(modifyPartOutsourcedRadioButton);
@@ -99,6 +166,13 @@ public class ModifyPartController implements Initializable {
         modifyPartOutsourcedRadioButton.setSelected(true);
     }
 
+    /**
+     * Method to save the part by assigning each information of each variable: id, name, inventory, price, min, and max
+     * by grabbing the text from each text fields and grabbing which radio button has been selected and returning to the
+     * main screen and inputting the part in the part table.
+     *
+     * @param actionEvent
+     */
     public void modifyPartSaveButtonAction(ActionEvent actionEvent) {
         try {
             int partID = selectedPart.getId();
@@ -149,6 +223,12 @@ public class ModifyPartController implements Initializable {
         }
     }
 
+    /**
+     * Method to cancel adding part by returning back to the main screen.
+     *
+     * @param actionEvent
+     * @throws IOException
+     */
     public void modifyPartCancelButtonAction(ActionEvent actionEvent) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("view/MainScreenView.fxml"));
         Scene scene = new Scene(fxmlLoader.load());

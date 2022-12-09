@@ -10,7 +10,7 @@ import javafx.collections.ObservableList;
  */
 public class Inventory {
     /**
-     * Variable for the Inventory's partID, productID, allParts, and allProducts.
+     * Variables for the Inventory's partID, productID, allParts, and allProducts.
      */
     private static int partID = 0;
     private static int productID = 0;

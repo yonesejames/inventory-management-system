@@ -8,6 +8,9 @@ package com.example.inventorymanagementapplication.model;
  * @author Place Your Name Here
  */
 public abstract class Part {
+    /**
+     * Variables for the Part's id, name, price, stock, min, and max.
+     */
     private int id;
     private String name;
     private double price;

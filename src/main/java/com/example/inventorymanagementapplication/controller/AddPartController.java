@@ -10,7 +10,6 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -21,32 +20,82 @@ import java.util.ResourceBundle;
  * @author Yonese James
  */
 public class AddPartController implements Initializable {
+
+    /**
+     * FXML toggle variable for the part's radio buttons: inhouse or outsourced.
+     */
     @FXML
     public ToggleGroup inhouseOrOutsourced;
+
+    /**
+     *  FXML label variable for the part's ID.
+     */
     @FXML
     public Label addPartID;
+
+    /**
+     *  FXML label variable for the part's machineID or companyName.
+     */
     @FXML
     public Label machineIDOrCompanyName;
+
+    /**
+     *  FXML radio button variable for the part's inhouse.
+     */
     @FXML
     private RadioButton addPartInhouseRadioButton;
+
+    /**
+     *  FXML radio button variable for the part's outsourced.
+     */
     @FXML
     private RadioButton addPartOutsourcedRadioButton;
+
+    /**
+     *  FXML save button variable to save part.
+     */
     @FXML
     private Button addPartSaveButton;
+
+    /**
+     *  FXML cancel button variable to cancel part.
+     */
     @FXML
     private Button addPartCancelButton;
-    @FXML
-    private TextField addPartIDTextField;
+
+    /**
+     *  FXML text field variable for the part's name.
+     */
     @FXML
     private TextField addPartNameTextField;
+
+    /**
+     *  FXML text field variable for the part's stock.
+     */
     @FXML
     private TextField addPartInventoryTextField;
+
+    /**
+     *  FXML text field variable for the part's price.
+     */
     @FXML
     private TextField addPartPriceTextField;
+
+    /**
+     *  FXML text field variable for the part's minimum stock.
+     */
     @FXML
     private TextField addPartMinTextField;
+
+    /**
+     *  FXML text field variable for the part's maximum stock.
+     */
     @FXML
     private TextField addPartMaxTextField;
+
+    /**
+     *  FXML text field variable for the part's machineID or companyName.
+     */
     @FXML
     private TextField addPartMachineIDTextField;
 
@@ -62,16 +111,36 @@ public class AddPartController implements Initializable {
         addPartID.setText(String.valueOf(Inventory.setPartID()));
     }
 
+    /**
+     * Method to set text for part's machineID or companyName when toggled to inHouse which will turn
+     * text to "Machine ID"
+     *
+     * @param actionEvent
+     */
     public void addPartInhouseRadioButtonAction(ActionEvent actionEvent) {
         machineIDOrCompanyName.setText("Machine ID");
         inhouseOrOutsourced.selectToggle(addPartInhouseRadioButton);
     }
 
+    /**
+     * Method to set text for part's machineID or companyName when toggled to outsourced which will turn
+     * text to "Company Name"
+     *
+     * @param actionEvent
+     */
     public void addPartOutsourcedRadioButtonAction(ActionEvent actionEvent) {
         machineIDOrCompanyName.setText("Company Name");
         inhouseOrOutsourced.selectToggle(addPartOutsourcedRadioButton);
     }
 
+    /**
+     * Method to save the part by assigning each information of each variable: id, name, inventory, price, min, and max
+     * by grabbing the text from each text fields and grabbing which radio button has been selected and returning to the
+     * main screen and inputting the part in the part table.
+     *
+     * @param actionEvent
+     * @throws IOException
+     */
     public void addPartSaveButtonAction(ActionEvent actionEvent) throws IOException {
         try {
             int partID = Integer.parseInt(addPartID.getText());
@@ -124,6 +193,12 @@ public class AddPartController implements Initializable {
     }
 
 
+    /**
+     * Method to cancel adding part by returning back to the main screen.
+     *
+     * @param actionEvent
+     * @throws IOException
+     */
     public void addPartCancelButtonAction(ActionEvent actionEvent) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("view/MainScreenView.fxml"));
         Scene scene = new Scene(fxmlLoader.load());

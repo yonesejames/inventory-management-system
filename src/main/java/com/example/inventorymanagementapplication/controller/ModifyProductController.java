@@ -1,6 +1,5 @@
 package com.example.inventorymanagementapplication.controller;
 
-
 import com.example.inventorymanagementapplication.Main;
 import com.example.inventorymanagementapplication.model.Inventory;
 import com.example.inventorymanagementapplication.model.Part;
@@ -17,7 +16,6 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
@@ -29,54 +27,152 @@ import java.util.ResourceBundle;
  * @author Yonese James
  */
 public class ModifyProductController implements Initializable {
+    /**
+     *  FXML label variable for the modifyProduct's ID.
+     */
     @FXML
     public Label modifyProductID;
+
+    /**
+     *  FXML add button variable to add a part to the modifyProduct.
+     */
+    @FXML
     public Button modifyProductAddPartButton;
+
+    /**
+     *  FXML save button variable to save modifyProduct.
+     */
     @FXML
     private Button modifyProductSaveButton;
+
+    /**
+     *  FXML cancel button variable to cancel modifyProduct.
+     */
     @FXML
     private Button modifyProductCancelButton;
+
+    /**
+     *  FXML text field variable for the modifyProduct's ID.
+     */
     @FXML
     private TextField modifyProductIDTextField;
+
+    /**
+     *  FXML text field variable for the modifyProduct's name.
+     */
     @FXML
     private TextField modifyProductNameTextField;
+
+    /**
+     *  FXML text field variable for the modifyProduct's stock.
+     */
     @FXML
     private TextField modifyProductInventoryTextField;
+
+    /**
+     *  FXML text field variable for the modifyProduct's price.
+     */
     @FXML
     private TextField modifyProductPriceTextField;
+
+    /**
+     *  FXML text field variable for the modifyProduct's minimum stock.
+     */
     @FXML
     private TextField modifyProductMinTextField;
+
+    /**
+     *  FXML text field variable for the modifyProduct's maximum stock.
+     */
     @FXML
     private TextField modifyProductMaxTextField;
+
+    /**
+     *  FXML table view variable for the first table modifyProduct's parts.
+     */
     @FXML
     private TableView<Part> modifyProductPartTable;
+
+
+    /**
+     *  FXML table column variable for the first table modifyProduct part's ID.
+     */
     @FXML
     private TableColumn<Part, Integer> modifyProductPartIDColumn;
+
+    /**
+     *  FXML table column variable for the first table modifyProduct part's name.
+     */
     @FXML
     private TableColumn<Part, String>  modifyProductPartNameColumn;
+
+    /**
+     *  FXML table column variable for the first table modifyProduct part's stock.
+     */
     @FXML
     private TableColumn<Part, Integer>  modifyProductPartInventoryColumn;
+
+    /**
+     *  FXML table column variable for the first table modifyProduct part's price.
+     */
     @FXML
     private TableColumn<Part, Double>  modifyProductPartPriceColumn;
+
+    /**
+     *  FXML table view variable for the second table modifyProduct's parts.
+     */
     @FXML
     private TableView<Part> modifyProductPartTableNew;
+
+    /**
+     *  FXML table column variable for the second table modifyProduct part's ID.
+     */
     @FXML
     private TableColumn<Part, Integer>  modifyProductPartIDNewColumn;
+
+    /**
+     *  FXML table column variable for the second table modifyProduct part's name.
+     */
     @FXML
     private TableColumn<Part, String>  modifyProductPartNameNewColumn;
+
+    /**
+     *  FXML table column variable for the second table modifyProduct part's stock.
+     */
     @FXML
     private TableColumn<Part, Integer>  modifyProductPartInventoryNewColumn;
+
+    /**
+     *  FXML table column variable for the second table modifyProduct part's price.
+     */
     @FXML
     private TableColumn<Part, Double>  modifyProductPartPriceNewColumn;
+
+    /**
+     *  FXML text field variable for the modifyProduct table's search.
+     */
     @FXML
     private TextField modifyProductSearchTextField;
+
+    /**
+     *  FXML remove part button variable to remove a part from the product.
+     */
     @FXML
     private Button modifyProductRemovePartButton;
 
+    /**
+     *  Product variable that needs to be modified.
+     */
     private Product modifiedProduct;
 
+    /**
+     *  Variable for the parts associated with the product.
+     */
     private ObservableList<Part> associatedParts = FXCollections.observableArrayList();
 
+    /**
+     *  Variable that has been selected from the main screen.
+     */
     Product selectedProduct;
 
     /**
@@ -110,6 +206,17 @@ public class ModifyProductController implements Initializable {
         modifyProductPartTableNew.setItems(selectedProduct.getAllAssociatedParts());
     }
 
+    /**
+     * Method to save the product by assigning each information of each variable: id, name, inventory, price,
+     * min, and max by grabbing the text from each text fields and adding parts to the associated parts if the parts
+     * were added from the first table to the second table and then returning to the main screen and inputting the
+     * product in the product's table. However, if the min is larger than the max, or if
+     * the inventory is smaller than the minimum or larger than the maximum, or if any of the text fields are empty then
+     * a warning message pops up.
+     *
+     * @param actionEvent
+     * @throws IOException
+     */
     public void modifyProductSaveButtonAction(ActionEvent actionEvent) throws IOException {
         try {
             modifiedProduct = selectedProduct;
@@ -168,6 +275,12 @@ public class ModifyProductController implements Initializable {
         }
     }
 
+    /**
+     * Method to cancel adding product by returning back to the main screen.
+     *
+     * @param actionEvent
+     * @throws IOException
+     */
     public void modifyProductCancelButtonAction(ActionEvent actionEvent) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("view/MainScreenView.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
@@ -204,6 +317,13 @@ public class ModifyProductController implements Initializable {
     public void modifyProductSearchTextFieldAction(ActionEvent actionEvent) {
     }
 
+    /**
+     * Method to remove part from the associatedParts and from the product by first confirming the part will be removed
+     * then setting the new product's part table to the new associatedParts without the part.
+     *
+     * @param actionEvent
+     * @throws IOException
+     */
     public void modifyProductRemovePartButtonAction(ActionEvent actionEvent) throws IOException {
         Part selectedPart = modifyProductPartTableNew.getSelectionModel().getSelectedItem();
 
@@ -218,12 +338,22 @@ public class ModifyProductController implements Initializable {
         }
     }
 
+    /**
+     * Method that shows all parts in the product part's table when the search bar has no text.
+     *
+     * @param keyEvent
+     */
     public void modifyProductKeyPressedAction(KeyEvent keyEvent) {
         if (modifyProductSearchTextField.getText().isEmpty()) {
             modifyProductPartTable.setItems(Inventory.getAllParts());
         }
     }
 
+    /**
+     * Method to add a part to the associatedParts for the product.
+     *
+     * @param actionEvent
+     */
     public void modifyProductAddPartButtonAction(ActionEvent actionEvent) {
         Part selectedPart = modifyProductPartTable.getSelectionModel().getSelectedItem();
         associatedParts.add(selectedPart);

@@ -7,7 +7,7 @@ package com.example.inventorymanagementapplication.model;
  */
 public class Outsourced extends Part {
     /**
-     * Variable for the Outsourced's companyName.
+     * Variable for the Outsource's companyName.
      */
     private String companyName;
 
