@@ -4,8 +4,9 @@ package com.example.inventorymanagementapplication.model;
  */
 
 /**
+ * Model abstract class for Part.
  *
- * @author Place Your Name Here
+ * @author Yonese James
  */
 public abstract class Part {
     /**
