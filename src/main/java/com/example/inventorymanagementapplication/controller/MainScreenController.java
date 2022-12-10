@@ -474,4 +474,10 @@ public class MainScreenController implements Initializable {
     public void mainScreenExitButtonAction(ActionEvent actionEvent) {
         System.exit(0);
     }
+
+    public void mainScreenProductTableAction(SortEvent<TableView<Product>> tableViewSortEvent) {
+    }
+
+    public void mainScreenPartTableAction(SortEvent<TableView<Part>> tableViewSortEvent) {
+    }
 }
