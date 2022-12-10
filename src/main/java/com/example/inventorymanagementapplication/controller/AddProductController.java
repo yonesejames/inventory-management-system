@@ -331,8 +331,12 @@ public class AddProductController implements Initializable {
      */
     public void addProductAddPartButtonAction(ActionEvent actionEvent) {
         Part selectedPart = addProductPartTable.getSelectionModel().getSelectedItem();
-        associatedParts.add(selectedPart);
-        addProductPartTableNew.setItems(associatedParts);
+
+        if (selectedPart != null) {
+            associatedParts.add(selectedPart);
+            addProductPartTableNew.setItems(associatedParts);;
+        }
+
     }
 
     /**
@@ -350,9 +354,8 @@ public class AddProductController implements Initializable {
         confirmationAlert.setContentText("PLEASE CONFIRM IF YOU WOULD LIKE TO REMOVE THIS PRODUCT");
         Optional<ButtonType> confirmationButton = confirmationAlert.showAndWait();
 
-        if (confirmationButton.isPresent() && confirmationButton.get() == ButtonType.OK) {
+        if (confirmationButton.isPresent() && confirmationButton.get() == ButtonType.OK && selectedPart != null) {
             associatedParts.remove(selectedPart);
-            addProductPartTableNew.setItems(associatedParts);
         }
     }
 

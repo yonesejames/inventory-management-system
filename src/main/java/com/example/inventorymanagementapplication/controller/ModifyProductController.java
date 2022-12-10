@@ -184,8 +184,8 @@ public class ModifyProductController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         selectedProduct = MainScreenController.getSelectedProduct();
+        associatedParts = selectedProduct.getAssociatedParts();
 
-        modifyProductPartTable.setItems(Inventory.getAllParts());
         modifyProductID.setText(String.valueOf(selectedProduct.getId()));
         modifyProductNameTextField.setText(selectedProduct.getName());
         modifyProductInventoryTextField.setText(String.valueOf(selectedProduct.getStock()));
@@ -193,17 +193,18 @@ public class ModifyProductController implements Initializable {
         modifyProductMinTextField.setText(String.valueOf(selectedProduct.getMin()));
         modifyProductMaxTextField.setText(String.valueOf(selectedProduct.getMax()));
 
+        modifyProductPartTable.setItems(Inventory.getAllParts());
         modifyProductPartIDColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         modifyProductPartNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         modifyProductPartInventoryColumn.setCellValueFactory(new PropertyValueFactory<>("stock"));
         modifyProductPartPriceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
-        modifyProductPartTable.setItems(selectedProduct.getAllAssociatedParts());
+        System.out.println(selectedProduct.getAllAssociatedParts().size());
 
+        modifyProductPartTableNew.setItems(selectedProduct.getAllAssociatedParts());
         modifyProductPartIDNewColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         modifyProductPartNameNewColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         modifyProductPartInventoryNewColumn.setCellValueFactory(new PropertyValueFactory<>("stock"));
         modifyProductPartPriceNewColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
-        modifyProductPartTableNew.setItems(selectedProduct.getAllAssociatedParts());
     }
 
     /**
@@ -220,6 +221,7 @@ public class ModifyProductController implements Initializable {
     public void modifyProductSaveButtonAction(ActionEvent actionEvent) throws IOException {
         try {
             modifiedProduct = selectedProduct;
+            int index = Inventory.getAllProducts().indexOf(modifiedProduct);
             modifiedProduct.setName(modifyProductNameTextField.getText());
             modifiedProduct.setPrice(Double.parseDouble(modifyProductPriceTextField.getText()));
             modifiedProduct.setStock(Integer.parseInt(modifyProductInventoryTextField.getText()));
@@ -253,11 +255,9 @@ public class ModifyProductController implements Initializable {
             }
             else
             {
-                for (Part part: associatedParts)
-                {
-                    modifiedProduct.addAssociatedPart(part);
-                }
-                Inventory.updateProduct(modifiedProduct.getId(), modifiedProduct);
+                Product newProduct = new Product(associatedParts, modifiedProduct.getId(), modifiedProduct.getName(),
+                        modifiedProduct.getPrice(), modifiedProduct.getStock(), modifiedProduct.getMin(), modifiedProduct.getMax());
+                Inventory.updateProduct(index, newProduct);
                 FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("view/MainScreenView.fxml"));
                 Scene scene = new Scene(fxmlLoader.load());
                 Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
@@ -332,9 +332,8 @@ public class ModifyProductController implements Initializable {
         confirmationAlert.setContentText("PLEASE CONFIRM IF YOU WOULD LIKE TO REMOVE THIS PRODUCT");
         Optional<ButtonType> confirmationButton = confirmationAlert.showAndWait();
 
-        if (confirmationButton.isPresent() && confirmationButton.get() == ButtonType.OK) {
+        if (confirmationButton.isPresent() && confirmationButton.get() == ButtonType.OK && selectedPart != null) {
             associatedParts.remove(selectedPart);
-            modifyProductPartTableNew.setItems(associatedParts);
         }
     }
 

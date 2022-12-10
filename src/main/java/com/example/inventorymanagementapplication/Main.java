@@ -1,5 +1,6 @@
 package com.example.inventorymanagementapplication;
 
+import com.example.inventorymanagementapplication.model.*;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -29,6 +30,15 @@ public class Main extends Application {
      * @param args
      */
     public static void main(String[] args) {
+
+        Part p1 = new InHouse(Inventory.setPartID(), "Mouse", 20, 4, 1, 10, 0);
+        Inventory.addPart(p1);
+        Part p2 = new Outsourced(Inventory.setPartID(), "Keyboard", 50, 5, 1, 10, "DELL");
+        Inventory.addPart(p2);
+
+        Product pr1 = new Product(Inventory.setProductID(), "Computer", 500, 1, 1, 10);
+        Inventory.addProduct(pr1);
+
         launch(args);
     }
 }
