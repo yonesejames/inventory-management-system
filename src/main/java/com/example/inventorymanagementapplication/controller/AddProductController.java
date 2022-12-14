@@ -250,6 +250,12 @@ public class AddProductController implements Initializable {
             errorAlert.setContentText("MUST HAVE INPUT FOR ALL VALUES");
             errorAlert.showAndWait();
         }
+        catch (NumberFormatException e) {
+            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+            errorAlert.setTitle("WARNING");
+            errorAlert.setContentText("MUST HAVE ACCURATE INPUTS FOR ALL VALUES");
+            errorAlert.showAndWait();
+        }
     }
 
     /**
