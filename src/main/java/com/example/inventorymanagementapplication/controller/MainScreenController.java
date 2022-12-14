@@ -430,7 +430,7 @@ public class MainScreenController implements Initializable {
      * @param actionEvent
      */
     public void mainScreenProductSearchAction(ActionEvent actionEvent) {
-        String productTextSearch = mainScreenPartSearch.getText();
+        String productTextSearch = mainScreenProductSearch.getText();
         ObservableList<Product> temporaryProducts = Inventory.lookupProduct(productTextSearch);
         ObservableList<Product> allProducts = Inventory.getAllProducts();
 
