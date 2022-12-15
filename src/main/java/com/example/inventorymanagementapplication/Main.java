@@ -10,6 +10,11 @@ import java.io.IOException;
 /**
  * Main class that initializes and launches the application.
  *
+ * FUTURE ENHANCEMENT: Add the ability to scan items instead of inputting them manually into the system. Optional
+ * feature to allow barcode numbers to keep track of individual items to be inputted manually or scanned
+ * through a machine hooked to the computer or mobile device. Each item in the inventory needs to be accounted
+ * for and a barcode can help assist with this.
+ *
  * @author Yonese James
  */
 public class Main extends Application {

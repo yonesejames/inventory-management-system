@@ -114,6 +114,11 @@ public class ModifyPartController implements Initializable {
     /**
      * Initialize method for the ModifyPartController to initialize the stage and items.
      *
+     * RUNTIME/LOGICAL ERROR: The radio buttons, inhouse and outsourced, for the selected part that needed
+     * to be modified was selected, so I had to ensure that only one was selected by creating an if statement for each
+     * instance of inhouse and outsourced and ensuring the correct radio buttons were selected by setting the correct
+     * radio button to true and the text to the correct text of "Machine ID" or "Company Name".
+     *
      * @param url for the url path.
      * @param resourceBundle for the resource.
      */
