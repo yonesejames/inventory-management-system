@@ -322,6 +322,10 @@ public class AddProductController implements Initializable {
 
         addProductPartTable.setItems(temporaryParts);
 
+        if (addProductSearchTextField.getText().isEmpty()) {
+            addProductPartTable.setItems(Inventory.getAllParts());
+        }
+
         if (temporaryParts.size() == 0) {
             Alert errorAlert = new Alert(Alert.AlertType.ERROR);
             errorAlert.setTitle("ERROR");
