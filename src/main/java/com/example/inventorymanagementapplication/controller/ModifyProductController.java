@@ -314,7 +314,41 @@ public class ModifyProductController implements Initializable {
     public void modifyProductPartTableNewAction(SortEvent<TableView> tableViewSortEvent) {
     }
 
+    /**
+     * Method to search through the product's parts search bar and add the parts to a temporaryParts ObservableList
+     * and if the part has the same ID or name as the text in the search bar and returns the parts in the list. If the
+     * part is not found then an error message pops up on the application.
+     *
+     * @param actionEvent
+     */
     public void modifyProductSearchTextFieldAction(ActionEvent actionEvent) {
+        String productTextSearch = modifyProductSearchTextField.getText();
+        ObservableList<Part> temporaryParts = Inventory.lookupPart(productTextSearch);
+        ObservableList<Part> allParts = Inventory.getAllParts();
+
+        for (Part part : allParts) {
+            if (String.valueOf(part.getId()).contains(productTextSearch))
+            {
+                temporaryParts.add(part);
+            }
+            if (part.getName().contains(productTextSearch))
+            {
+                temporaryParts.add(part);
+            }
+        }
+
+        modifyProductPartTable.setItems(temporaryParts);
+
+        if (modifyProductSearchTextField.getText().isEmpty()) {
+            modifyProductPartTable.setItems(Inventory.getAllParts());
+        }
+
+        if (temporaryParts.size() == 0) {
+            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+            errorAlert.setTitle("ERROR");
+            errorAlert.setContentText("NO PARTS WAS FOUND");
+            errorAlert.showAndWait();
+        }
     }
 
     /**
