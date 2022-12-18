@@ -182,7 +182,6 @@ public class AddProductController implements Initializable {
         addProductProductNameNewColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         addProductProductInventoryNewColumn.setCellValueFactory(new PropertyValueFactory<>("stock"));
         addProductProductPriceNewColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
-
     }
 
     /**
@@ -253,7 +252,7 @@ public class AddProductController implements Initializable {
         catch (NumberFormatException e) {
             Alert errorAlert = new Alert(Alert.AlertType.ERROR);
             errorAlert.setTitle("WARNING");
-            errorAlert.setContentText("MUST HAVE ACCURATE INPUTS FOR ALL VALUES");
+            errorAlert.setContentText("MUST HAVE NUMERIC VALUE FOR INVENTORY, PRICE, MIN, AND MAX");
             errorAlert.showAndWait();
         }
     }
